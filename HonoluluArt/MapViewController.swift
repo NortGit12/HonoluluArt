@@ -15,6 +15,7 @@ class MapViewController: UIViewController {
     // MARK: - _Properties
     //==================================================
     
+    let regionRadius: CLLocationDistance = 1000
     @IBOutlet weak var mapView: MKMapView!
     
     //==================================================
@@ -24,9 +25,19 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)   // Honolulu
+        centerMapOnLocation(location: initialLocation)
     }
     
+    //==================================================
+    // MARK: - Methods
+    //==================================================
+    
+    func centerMapOnLocation(location: CLLocation) {
+        
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
 
     /*
     // MARK: - Navigation
